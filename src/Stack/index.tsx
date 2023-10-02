@@ -38,7 +38,7 @@ type StackProps = {
   showCount: number;
 };
 
-const Container = (props: React.PropsWithChildren<StackProps>) => {
+const Stack = (props: React.PropsWithChildren<StackProps>) => {
   const { as: tag = 'div', time = 400, showCount, children } = props;
 
   const container = useRef<HTMLDivElement>(null);
@@ -71,4 +71,4 @@ const Container = (props: React.PropsWithChildren<StackProps>) => {
   );
 };
 
-export default Container;
+export default Stack;

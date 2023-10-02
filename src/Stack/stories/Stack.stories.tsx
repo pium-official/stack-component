@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import Container from '..';
+import Stack from '..';
 import { POEMS } from './fixtures';
 
-const meta: Meta<typeof Container> = {
-  component: Container,
+const meta: Meta<typeof Stack> = {
+  component: Stack,
 };
 
 export default meta;
 
-type Story = StoryObj<typeof Container>;
+type Story = StoryObj<typeof Stack>;
 
 const getRandomInteger = (min: number, max: number) =>
   min + Math.floor(Math.random() * (max - min));
@@ -42,11 +42,11 @@ const BoxStack = () => {
 
   return (
     <>
-      <Container showCount={showCount}>
+      <Stack showCount={showCount}>
         {Array.from({ length: MAX_STACK_SIZE }).map((_, index) => (
           <RandomBox key={index}>{index + 1}</RandomBox>
         ))}
-      </Container>
+      </Stack>
       <button
         type="button"
         disabled={showCount >= MAX_STACK_SIZE - 1}
@@ -65,13 +65,13 @@ const TextStack = () => {
 
   return (
     <>
-      <Container showCount={showCount}>
+      <Stack showCount={showCount}>
         {POEMS.map((poem) => (
           <p key={poem.slice(0, 7)} style={{ padding: '2px', margin: 0 }}>
             {poem}
           </p>
         ))}
-      </Container>
+      </Stack>
       <button
         type="button"
         disabled={showCount >= POEMS.length}
