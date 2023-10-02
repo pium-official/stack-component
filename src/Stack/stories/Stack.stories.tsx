@@ -7,16 +7,29 @@ const meta: Meta<typeof Stack> = {
   component: Stack,
 
   argTypes: {
+    showCount: {
+      control: { type: 'range', min: 0, max: POEMS.length, step: 1 },
+    },
     as: { defaultValue: { summary: '"div"' } },
     flow: { defaultValue: { summary: '"reverse"' } },
+    time: { defaultValue: { summary: 400 } },
     justifyItems: {
       table: { type: { detail: 'CSS의 `justify-items`' } },
       defaultValue: { summary: '"normal"' },
     },
     rowGap: {
       table: { type: { detail: 'CSS의 `row-gap`' } },
-      defaultValue: { summary: '0' },
+      defaultValue: { summary: 0 },
     },
+  },
+
+  args: {
+    showCount: 1,
+    as: 'div',
+    flow: 'reverse',
+    time: 400,
+    justifyItems: 'normal',
+    rowGap: 0,
   },
 };
 
@@ -48,16 +61,28 @@ const RandomBox = (props: React.PropsWithChildren) => {
   );
 };
 
-const BoxStack = () => {
+const Counter = () => {
+  const [count, setCount] = useState(0);
+  return (
+    <button type="button" onClick={() => setCount(count + 1)}>
+      버튼을 누른 횟수: {count}
+    </button>
+  );
+};
+
+const BoxStack = (props: Pick<React.ComponentProps<typeof Stack>, 'flow'>) => {
+  const { flow = 'reverse' } = props;
   const [showCount, setShowCount] = useState(0);
   const showNext = () => setShowCount(showCount + 1);
   const MAX_STACK_SIZE = 10;
 
   return (
     <>
-      <Stack showCount={showCount} rowGap="10px">
+      <Stack showCount={showCount} flow={flow} rowGap="10px">
         {Array.from({ length: MAX_STACK_SIZE }).map((_, index) => (
-          <RandomBox key={index}>{index + 1}</RandomBox>
+          <RandomBox key={index}>
+            {index + 1}번 상자 &nbsp; <Counter />
+          </RandomBox>
         ))}
       </Stack>
       <button
@@ -72,35 +97,38 @@ const BoxStack = () => {
   );
 };
 
-const TextStack = () => {
-  const [showCount, setShowCount] = useState(0);
-  const showNext = () => setShowCount(showCount + 1);
-
-  return (
-    <>
-      <Stack showCount={showCount} flow="reverse" rowGap="2rem">
-        {POEMS.map((poem) => (
-          <p key={poem.slice(0, 7)} style={{ padding: '2px', margin: 0 }}>
-            {poem}
-          </p>
-        ))}
-      </Stack>
-      <button
-        type="button"
-        disabled={showCount >= POEMS.length}
-        onClick={showNext}
-        style={{ width: '100%', fontSize: '2rem' }}
-      >
-        {showCount < POEMS.length ? '감성 충전하기' : '끝!'}
-      </button>
-    </>
-  );
+export const Playground: Story = {
+  render: (args) => (
+    <Stack {...args}>
+      {POEMS.map((poem, index) => (
+        <p key={poem.slice(0, 7)} style={{ padding: '2px', margin: 0 }}>
+          {index + 1}번 <br /> {poem}
+        </p>
+      ))}
+    </Stack>
+  ),
 };
 
 export const NormalFlowExample: Story = {
-  render: BoxStack,
+  render: () => <BoxStack flow="normal" />,
+  argTypes: {
+    showCount: { table: { disable: true } },
+    as: { table: { disable: true } },
+    flow: { table: { disable: true } },
+    time: { table: { disable: true } },
+    justifyItems: { table: { disable: true } },
+    rowGap: { table: { disable: true } },
+  },
 };
 
 export const ReverseFlowExample: Story = {
-  render: TextStack,
+  render: () => <BoxStack flow="reverse" />,
+  argTypes: {
+    showCount: { table: { disable: true } },
+    as: { table: { disable: true } },
+    flow: { table: { disable: true } },
+    time: { table: { disable: true } },
+    justifyItems: { table: { disable: true } },
+    rowGap: { table: { disable: true } },
+  },
 };
