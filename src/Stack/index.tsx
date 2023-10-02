@@ -39,7 +39,7 @@ type StackProps = {
 };
 
 const Stack = (props: React.PropsWithChildren<StackProps>) => {
-  const { as: tag = 'div', time = 400, showCount, children } = props;
+  const { as: tag = 'div', time = 400, justifyItems = 'normal', showCount, children } = props;
 
   const container = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState({ previous: 0, current: 0 });
@@ -65,6 +65,7 @@ const Stack = (props: React.PropsWithChildren<StackProps>) => {
       $showCount={clippedShowCount}
       $newChildHeight={`${height.current - height.previous + Math.random()}px`}
       $animationTime={animationTime}
+      $justifyItems={justifyItems}
     >
       {Children.toArray(children).slice(0, clippedShowCount).reverse()}
     </Wrapper>

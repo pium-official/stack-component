@@ -14,13 +14,16 @@ export const Wrapper = styled.div<{
   $showCount: number;
   $newChildHeight: React.CSSProperties['height'];
   $animationTime: number;
+  $justifyItems: React.CSSProperties['justifyItems'];
 }>`
   display: grid;
   row-gap: 10px;
+  justify-items: ${({ $justifyItems }) => $justifyItems};
+
   width: 100%;
+
   animation: ${({ $newChildHeight }) => fall($newChildHeight)}
     ${({ $animationTime }) => $animationTime}s linear;
-
   & > *:first-child {
     animation: ${appear} ${({ $animationTime }) => $animationTime}s linear;
   }
