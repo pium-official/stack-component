@@ -6,6 +6,7 @@ type StackWrapperProps = {
   $newChildHeight: React.CSSProperties['height'];
   $animationTime: number;
   $justifyItems: React.CSSProperties['justifyItems'];
+  $rowGap: React.CSSProperties['rowGap'];
 };
 
 const appear = keyframes`
@@ -40,7 +41,7 @@ const lastChildAnimation = css<Pick<StackWrapperProps, '$newChildHeight' | '$ani
 
 export const Wrapper = styled.div<StackWrapperProps>`
   display: grid;
-  row-gap: 10px;
+  row-gap: ${({ $rowGap }) => $rowGap};
   justify-items: ${({ $justifyItems }) => $justifyItems};
 
   width: 100%;

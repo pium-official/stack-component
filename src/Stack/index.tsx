@@ -2,8 +2,15 @@ import { Children, useRef, useState, useEffect } from 'react';
 import { flushSync } from 'react-dom';
 import { Wrapper } from './Stack.style';
 import clip from '../utils/clip';
+import toPixelIfNumber from '../utils/toPixelIfNumber';
 
 type StackProps = {
+  /**
+   * 보여줄 요소의 개수. 음이 아닌 정수여야 합니다.
+   *
+   * 음수는 0으로, 실수는 소수 첫째 자리에서 반올림하여 사용합니다.
+   */
+  showCount: number;
   /**
    * Stack에 적용할 semantic tag
    * @defaultValue 'div'
@@ -15,11 +22,11 @@ type StackProps = {
    * `normal`: JSX에 나타난 순서대로 DOM에 표시됩니다. 새로운 요소는 아래에서 위로 올라옵니다.
    *
    * `reverse`: JSX에 나타난 순서의 반대로 DOM에 표시됩니다. 새로운 요소는 위에서 아래로 떨어집니다.
-   * @defaultValue 'normal'
+   * @defaultValue 'reverse'
    */
   flow?: 'normal' | 'reverse';
   /**
-   * 각 요소를 정렬할 방향
+   * 각 요소를 정렬할 방향.
    * @defaultValue 'normal'
    */
   justifyItems?: React.CSSProperties['justifyItems'];
@@ -31,11 +38,10 @@ type StackProps = {
    */
   time?: number;
   /**
-   * 보여줄 요소의 개수. 음이 아닌 정수여야 합니다.
-   *
-   * 음수는 0으로, 실수는 소수 첫째 자리에서 반올림하여 사용합니다.
+   * 내부 요소들 사이의 간격.
+   * @defaultValue 0
    */
-  showCount: number;
+  rowGap?: React.CSSProperties['rowGap'];
 };
 
 const Stack = (props: React.PropsWithChildren<StackProps>) => {
@@ -43,7 +49,8 @@ const Stack = (props: React.PropsWithChildren<StackProps>) => {
     as: tag = 'div',
     time = 400,
     justifyItems = 'normal',
-    flow = 'normal',
+    flow = 'reverse',
+    rowGap = 0,
     showCount,
     children,
   } = props;
@@ -75,6 +82,7 @@ const Stack = (props: React.PropsWithChildren<StackProps>) => {
       $newChildHeight={`${height.current - height.previous + Math.random()}px`}
       $animationTime={animationTime}
       $justifyItems={justifyItems}
+      $rowGap={toPixelIfNumber(rowGap)}
     >
       {flow === 'normal' ? visibleChildren : visibleChildren.reverse()}
     </Wrapper>

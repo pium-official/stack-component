@@ -5,6 +5,19 @@ import { POEMS } from './fixtures';
 
 const meta: Meta<typeof Stack> = {
   component: Stack,
+
+  argTypes: {
+    as: { defaultValue: { summary: '"div"' } },
+    flow: { defaultValue: { summary: '"reverse"' } },
+    justifyItems: {
+      table: { type: { detail: 'CSS의 `justify-items`' } },
+      defaultValue: { summary: '"normal"' },
+    },
+    rowGap: {
+      table: { type: { detail: 'CSS의 `row-gap`' } },
+      defaultValue: { summary: '0' },
+    },
+  },
 };
 
 export default meta;
@@ -42,7 +55,7 @@ const BoxStack = () => {
 
   return (
     <>
-      <Stack showCount={showCount}>
+      <Stack showCount={showCount} rowGap="10px">
         {Array.from({ length: MAX_STACK_SIZE }).map((_, index) => (
           <RandomBox key={index}>{index + 1}</RandomBox>
         ))}
@@ -65,7 +78,7 @@ const TextStack = () => {
 
   return (
     <>
-      <Stack showCount={showCount}>
+      <Stack showCount={showCount} flow="reverse" rowGap="2rem">
         {POEMS.map((poem) => (
           <p key={poem.slice(0, 7)} style={{ padding: '2px', margin: 0 }}>
             {poem}
@@ -84,10 +97,10 @@ const TextStack = () => {
   );
 };
 
-export const Example: Story = {
+export const NormalFlowExample: Story = {
   render: BoxStack,
 };
 
-export const Example2: Story = {
+export const ReverseFlowExample: Story = {
   render: TextStack,
 };
