@@ -24,6 +24,7 @@ module.exports = {
       'error',
       { endOfLine: 'auto' },
     ],
+    'import/no-named-as-default': 'off',
   },
   settings: {
     'import/parsers': {
