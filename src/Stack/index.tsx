@@ -39,7 +39,14 @@ type StackProps = {
 };
 
 const Stack = (props: React.PropsWithChildren<StackProps>) => {
-  const { as: tag = 'div', time = 400, justifyItems = 'normal', showCount, children } = props;
+  const {
+    as: tag = 'div',
+    time = 400,
+    justifyItems = 'normal',
+    flow = 'normal',
+    showCount,
+    children,
+  } = props;
 
   const container = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState({ previous: 0, current: 0 });
@@ -57,17 +64,19 @@ const Stack = (props: React.PropsWithChildren<StackProps>) => {
 
   const clippedShowCount = clip(showCount, 0);
   const animationTime = clip(time, 0) / 1000;
+  const visibleChildren = Children.toArray(children).slice(0, clippedShowCount);
 
   return (
     <Wrapper
       ref={container}
       as={tag}
+      $flow={flow}
       $showCount={clippedShowCount}
       $newChildHeight={`${height.current - height.previous + Math.random()}px`}
       $animationTime={animationTime}
       $justifyItems={justifyItems}
     >
-      {Children.toArray(children).slice(0, clippedShowCount).reverse()}
+      {flow === 'normal' ? visibleChildren : visibleChildren.reverse()}
     </Wrapper>
   );
 };
