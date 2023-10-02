@@ -1,8 +1,9 @@
-import { Children, useRef, useState, useEffect } from 'react';
+import { Children, useRef, useState, useEffect, useMemo } from 'react';
 import { flushSync } from 'react-dom';
 import { Wrapper } from './Stack.style';
 import clip from '../utils/clip';
 import toPixelIfNumber from '../utils/toPixelIfNumber';
+import getUniqueRandomFloatArray from '../utils/getUniqueRandomFloatArray';
 
 type StackProps = {
   /**
@@ -57,6 +58,7 @@ const Stack = (props: React.PropsWithChildren<StackProps>) => {
 
   const container = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState({ previous: 0, current: 0 });
+  const randomOffsets = useMemo(() => getUniqueRandomFloatArray(7), []);
 
   useEffect(() => {
     const resizeObserver = new ResizeObserver((entries) => {
@@ -72,6 +74,7 @@ const Stack = (props: React.PropsWithChildren<StackProps>) => {
   const clippedShowCount = clip(showCount, 0);
   const animationTime = clip(time, 0) / 1000;
   const visibleChildren = Children.toArray(children).slice(0, clippedShowCount);
+  const animationOffset = randomOffsets[showCount % 7];
 
   return (
     <Wrapper
@@ -79,7 +82,7 @@ const Stack = (props: React.PropsWithChildren<StackProps>) => {
       as={tag}
       $flow={flow}
       $showCount={clippedShowCount}
-      $newChildHeight={`${height.current - height.previous + Math.random()}px`}
+      $newChildHeight={`${height.current - height.previous + animationOffset}px`}
       $animationTime={animationTime}
       $justifyItems={justifyItems}
       $rowGap={toPixelIfNumber(rowGap)}
