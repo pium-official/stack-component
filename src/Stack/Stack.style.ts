@@ -11,16 +11,17 @@ const fall = (height: React.CSSProperties['height']) => keyframes`
 `;
 
 export const Wrapper = styled.div<{
-  $height: React.CSSProperties['height'];
   $showCount: number;
   $newChildHeight: React.CSSProperties['height'];
+  $animationTime: number;
 }>`
   display: grid;
   row-gap: 10px;
   width: 100%;
-  animation: ${({ $newChildHeight }) => fall($newChildHeight)} 0.4s linear;
+  animation: ${({ $newChildHeight }) => fall($newChildHeight)}
+    ${({ $animationTime }) => $animationTime}s linear;
 
   & > *:first-child {
-    animation: ${appear} 0.4s linear;
+    animation: ${appear} ${({ $animationTime }) => $animationTime}s linear;
   }
 `;

@@ -24,10 +24,12 @@ type StackProps = {
    */
   justifyItems?: React.CSSProperties['justifyItems'];
   /**
-   * 새로운 요소가 생길 때 애니메이션의 속도 (밀리초)
+   * 새로운 요소가 생길 때 애니메이션 시간(밀리초). 음이 아닌 정수여야 합니다.
+   *
+   * 음수는 0으로, 실수는 소수 첫째 자리에서 반올림하여 사용합니다.
    * @defaultValue 400
    */
-  speed?: number;
+  time?: number;
   /**
    * 보여줄 요소의 개수. 음이 아닌 정수여야 합니다.
    *
@@ -37,7 +39,7 @@ type StackProps = {
 };
 
 const Container = (props: React.PropsWithChildren<StackProps>) => {
-  const { as: tag = 'div', showCount, children } = props;
+  const { as: tag = 'div', time = 400, showCount, children } = props;
 
   const container = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState({ previous: 0, current: 0 });
@@ -53,17 +55,18 @@ const Container = (props: React.PropsWithChildren<StackProps>) => {
     return () => resizeObserver.disconnect();
   }, []);
 
-  const parsedShowCount = clip(showCount, 0);
+  const clippedShowCount = clip(showCount, 0);
+  const animationTime = clip(time, 0) / 1000;
 
   return (
     <Wrapper
       ref={container}
       as={tag}
-      $height={height.current}
-      $showCount={parsedShowCount}
+      $showCount={clippedShowCount}
       $newChildHeight={`${height.current - height.previous + Math.random()}px`}
+      $animationTime={animationTime}
     >
-      {Children.toArray(children).slice(0, parsedShowCount).reverse()}
+      {Children.toArray(children).slice(0, clippedShowCount).reverse()}
     </Wrapper>
   );
 };
