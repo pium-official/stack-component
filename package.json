@@ -1,11 +1,24 @@
 {
-  "name": "@pium-official/stack-component",
+  "name": "@pium/stack-component",
   "homepage": "https://pium-official.github.io/stack-component",
   "private": false,
-  "version": "0.0.0",
+  "version": "0.1.5",
   "type": "module",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pium-official/stack-component"
+  },
+  "main": "./dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
   "scripts": {
+    "build": "tsc && vite build",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "predeploy": "npm run storybook && touch storybook-static/.nojekyll",

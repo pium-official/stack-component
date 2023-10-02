@@ -1,0 +1,14 @@
+.github/
+.storybook/
+node_modules/
+src/
+storybook-static/
+
+.git*
+vite-env.d.ts
+.eslintrc.cjs
+.prettierrc
+.stylelintrc
+tsconfig.json
+tsconfig.node.json
+vite.config.ts
