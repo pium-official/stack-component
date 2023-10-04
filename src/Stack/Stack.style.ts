@@ -15,13 +15,13 @@ const appear = keyframes`
 `;
 
 const rise = (height: StackWrapperProps['$newChildHeight']) => keyframes`
-  from { transform: translate3d(0, ${height}, 0) }
-  to { transform: translate3d(0, 0, 0) }
+  from { transform: translateY(${height}) }
+  to { transform: translateY(0) }
 `;
 
 const fall = (height: StackWrapperProps['$newChildHeight']) => keyframes`
-  from { transform: translate3d(0, calc(-1 * ${height}), 0) }
-  to { transform: translate3d(0, 0, 0) }
+  from { transform: translateY(calc(-1 * ${height})) }
+  to { transform: translateY(0) }
 `;
 
 const firstChildAnimation = css<Pick<StackWrapperProps, '$newChildHeight' | '$animationTime'>>`
