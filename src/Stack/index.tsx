@@ -1,4 +1,4 @@
-import { Children, useRef, useState, useEffect, useMemo } from 'react';
+import { Children, useRef, useState, useEffect } from 'react';
 import { flushSync } from 'react-dom';
 import { Wrapper } from './Stack.style';
 import clip from '../utils/clip';
@@ -45,6 +45,17 @@ type StackProps = {
   rowGap?: React.CSSProperties['rowGap'];
 };
 
+/**
+ * 자식 요소들이 연속해서 같은 높이를 가지는 경우 `$newChildHeight`에 변화가 없기 때문에
+ * css 애니메이션의 이름이 변하지 않습니다.
+ * 따라서 html 역시 이미 실행한 애니메이션이라고 판단,
+ * 맨 처음 1회만 애니메이션을 실행하는 문제 해결을 위한 코드입니다.
+ *
+ * 배열의 길이는 2로도 가능하지만, 피움은 일곱 명이라 7로 했습니다.
+ * @see https://github.com/pium-official/stack-component/pull/2#pullrequestreview-1656634631
+ */
+const randomOffsets = getUniqueRandomFloatArray(7);
+
 const Stack = (props: React.PropsWithChildren<StackProps>) => {
   const {
     as: tag = 'div',
@@ -58,7 +69,6 @@ const Stack = (props: React.PropsWithChildren<StackProps>) => {
 
   const container = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState({ previous: 0, current: 0 });
-  const randomOffsets = useMemo(() => getUniqueRandomFloatArray(7), []);
 
   useEffect(() => {
     const resizeObserver = new ResizeObserver((entries) => {
