@@ -70,20 +70,31 @@ const Counter = () => {
   );
 };
 
-const BoxStack = (props: Pick<React.ComponentProps<typeof Stack>, 'flow'>) => {
-  const { flow = 'reverse' } = props;
+const Example = (
+  props: { type: 'box' | 'text' } & Pick<React.ComponentProps<typeof Stack>, 'flow'>
+) => {
+  const { flow = 'reverse', type } = props;
   const [showCount, setShowCount] = useState(0);
   const showNext = () => setShowCount(showCount + 1);
-  const MAX_STACK_SIZE = 10;
+  const MAX_STACK_SIZE = type === 'box' ? 10 : POEMS.length;
 
   return (
     <>
       <Stack showCount={showCount} flow={flow} rowGap="10px">
-        {Array.from({ length: MAX_STACK_SIZE }).map((_, index) => (
-          <RandomBox key={index}>
-            {index + 1}번 상자 &nbsp; <Counter />
-          </RandomBox>
-        ))}
+        {type === 'box'
+          ? Array.from({ length: MAX_STACK_SIZE }).map((_, index) => (
+              <RandomBox key={index}>
+                {index + 1}번 상자 &nbsp; <Counter />
+              </RandomBox>
+            ))
+          : POEMS.map((poem, index) => (
+              <p
+                key={poem.slice(0, 7)}
+                style={{ padding: '2px', margin: 0, border: '1px solid black' }}
+              >
+                {index + 1}번 <br /> {poem}
+              </p>
+            ))}
       </Stack>
       <button
         type="button"
@@ -110,7 +121,7 @@ export const Playground: Story = {
 };
 
 export const NormalFlowExample: Story = {
-  render: () => <BoxStack flow="normal" />,
+  render: () => <Example type="box" flow="normal" />,
   argTypes: {
     showCount: { table: { disable: true } },
     as: { table: { disable: true } },
@@ -122,7 +133,19 @@ export const NormalFlowExample: Story = {
 };
 
 export const ReverseFlowExample: Story = {
-  render: () => <BoxStack flow="reverse" />,
+  render: () => <Example type="box" flow="reverse" />,
+  argTypes: {
+    showCount: { table: { disable: true } },
+    as: { table: { disable: true } },
+    flow: { table: { disable: true } },
+    time: { table: { disable: true } },
+    justifyItems: { table: { disable: true } },
+    rowGap: { table: { disable: true } },
+  },
+};
+
+export const TextboxExample: Story = {
+  render: () => <Example type="text" flow="reverse" />,
   argTypes: {
     showCount: { table: { disable: true } },
     as: { table: { disable: true } },
