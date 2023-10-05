@@ -1,4 +1,4 @@
-import{j as n,S as o,P as i}from"./Stack.stories-3304c587.js";import{M as c,C as p}from"./index-d675b8cd.js";import{u as e}from"./index-cf712c1b.js";import"./index-c0290abd.js";import"./_commonjsHelpers-725317a4.js";import"./iframe-142be62b.js";import"../sb-preview/runtime.js";import"./index-d37d4223.js";import"./index-7356f5c8.js";import"./index-356e4a49.js";function s(t){const r=Object.assign({h1:"h1",h2:"h2",p:"p",ul:"ul",li:"li",code:"code",pre:"pre"},e(),t.components);return n.jsxs(n.Fragment,{children:[n.jsx(c,{of:o}),`
+import{j as n,S as o,P as i}from"./Stack.stories-bf392255.js";import{M as c,C as p}from"./index-d5538dc0.js";import{u as e}from"./index-cf712c1b.js";import"./index-c0290abd.js";import"./_commonjsHelpers-725317a4.js";import"./iframe-3c7f18df.js";import"../sb-preview/runtime.js";import"./index-d37d4223.js";import"./index-7356f5c8.js";import"./index-356e4a49.js";function s(t){const r=Object.assign({h1:"h1",h2:"h2",p:"p",ul:"ul",li:"li",code:"code",pre:"pre"},e(),t.components);return n.jsxs(n.Fragment,{children:[n.jsx(c,{of:o}),`
 `,n.jsx(r.h1,{id:"stack",children:"Stack"}),`
 `,n.jsx(r.h2,{id:"기능",children:"기능"}),`
 `,n.jsx(r.p,{children:"Stack은 주어진 자식 요소들을 세로로 정렬한 후, 원하는 만큼의 개수만 보여줍니다."}),`
@@ -31,4 +31,4 @@ import{j as n,S as o,P as i}from"./Stack.stories-3304c587.js";import{M as c,C as
   <p>그 위에 별들이 가는 길이 있기 때문이다</p>\r
 </Stack>
 `})})]})}function k(t={}){const{wrapper:r}=Object.assign({},e(),t.components);return r?n.jsx(r,Object.assign({},t,{children:n.jsx(s,t)})):s(t)}export{k as default};
-//# sourceMappingURL=Stack-6e6805c4.js.map
+//# sourceMappingURL=Stack-d4a535b0.js.map
