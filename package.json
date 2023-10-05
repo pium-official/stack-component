@@ -21,7 +21,7 @@
     "build": "tsc && vite build",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "predeploy": "npm run storybook && touch storybook-static/.nojekyll",
+    "predeploy": "npm run build-storybook && touch storybook-static/.nojekyll",
     "deploy": "gh-pages -d storybook-static -t true"
   },
   "dependencies": {
