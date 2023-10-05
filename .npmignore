@@ -9,6 +9,7 @@ vite-env.d.ts
 .eslintrc.cjs
 .prettierrc
 .stylelintrc
+.nojekyll
 tsconfig.json
 tsconfig.node.json
 vite.config.ts

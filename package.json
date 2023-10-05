@@ -2,7 +2,7 @@
   "name": "@pium/stack-component",
   "homepage": "https://pium-official.github.io/stack-component",
   "private": false,
-  "version": "0.1.5",
+  "version": "1.0.0",
   "type": "module",
   "license": "MIT",
   "repository": {
@@ -21,8 +21,10 @@
     "build": "tsc && vite build",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "predeploy": "npm run build-storybook && touch storybook-static/.nojekyll",
-    "deploy": "gh-pages -d storybook-static -t true"
+    "predeploy:linux": "npm run build-storybook && touch storybook-static/.nojekyll",
+    "predeploy:windows": "npm run build-storybook && copy .nojekyll storybook-static",
+    "deploy:linux": "gh-pages -d storybook-static -t true",
+    "deploy:windows": "gh-pages -d storybook-static -t true"
   },
   "dependencies": {
     "react": "^18.2.0",
